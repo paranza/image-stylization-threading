@@ -141,7 +141,7 @@ export function drawOverlay(
   // Sized to the canvas, so markers look the same at every quality.
   const r = Math.max(w, h) * 0.0022;
   if (showPegs) {
-    ctx.fillStyle = look.dark ? "rgba(255,255,255,0.75)" : "rgba(120,60,20,0.75)";
+    ctx.fillStyle = look.dark ? "rgba(255,255,255,0.8)" : "rgba(13,13,13,0.7)";
     for (let i = 0; i < look.pegsX.length; i++) {
       ctx.beginPath();
       ctx.arc((look.pegsX[i] + 0.5) * scale, (look.pegsY[i] + 0.5) * scale, r, 0, 2 * Math.PI);
@@ -153,7 +153,7 @@ export function drawOverlay(
     for (let t = 0; t < current.length; t++) {
       const p = current[t];
       const ink = look.inks[t];
-      ctx.strokeStyle = ink.channel < 0 ? "#d9480f" : ink.css;
+      ctx.strokeStyle = ink.channel < 0 ? "#2337ff" : ink.css;
       ctx.beginPath();
       ctx.arc((look.pegsX[p] + 0.5) * scale, (look.pegsY[p] + 0.5) * scale, r * 5, 0, 2 * Math.PI);
       ctx.stroke();

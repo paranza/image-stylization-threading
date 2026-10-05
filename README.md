@@ -1,5 +1,8 @@
 # Threading: string art from any picture
 
+**[Open the tool](https://paranza.github.io/image-stylization-threading/)** ·
+[The art behind the threads](https://paranza.github.io/image-stylization-threading/about.html)
+
 Turn a picture into string art. Pegs sit around a frame, and a single thread (or three
 colored threads) runs in straight lines from peg to peg. Thousands of stacked lines
 rebuild the picture, the way hatching builds tone in an engraving.
@@ -26,7 +29,8 @@ Everything runs in your browser. Nothing is uploaded.
 
 String art is hatching with one rule: every stroke must run from one peg to another.
 The tool leans on classic drawing ideas, and the page
-[The art behind the threads](about.html) explains each one with diagrams:
+[The art behind the threads](https://paranza.github.io/image-stylization-threading/about.html)
+explains each one with diagrams:
 
 - **Value and the value scale** (Denman Ross, Munsell): tone matters more than hue.
 - **Hatching and cross-hatching** (Dürer): tone from line density.

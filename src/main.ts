@@ -84,6 +84,7 @@ function restart(): void {
   renderValueScale(byId("valueScale"), working, s);
   byId("statPegs").textContent = String(s.pegs);
   setStats(null);
+  setProgress(0, false);
   const pixels = working.data.slice();
   send({ type: "start", gen, width: working.width, height: working.height, pixels, settings: s }, [pixels.buffer]);
   requestDraw();
@@ -129,8 +130,16 @@ worker.onmessage = (e: MessageEvent<FromWorker>) => {
   if (msg.stats !== null) setStats(msg.stats);
   const speed = computeMs > 0 ? Math.round((store.length / computeMs) * 1000) : 0;
   byId("statSpeed").textContent = `${speed.toLocaleString()} seg/s`;
+  setProgress(msg.idle ? 1 : store.length / num("segments"), msg.idle);
   requestDraw();
 };
+
+/** Thin bar under the toolbar while the solver works; fades out when it stops. */
+function setProgress(share: number, done: boolean): void {
+  const bar = byId("progress");
+  bar.style.width = `${Math.min(100, share * 100)}%`;
+  bar.classList.toggle("done", done);
+}
 
 /** Display only: the thread path stays, the drawing is repainted. */
 function restyle(): void {
@@ -165,6 +174,7 @@ onRange("contrast", restartSoon, (v) => v.toFixed(2));
 // Segments: lower shows a prefix of the same path, higher lets the solver continue.
 onRange("segments", () => {
   send({ type: "setMax", gen, max: num("segments") });
+  if (store.length < num("segments")) setProgress(store.length / num("segments"), false);
   requestDraw();
 }, (v) => v.toLocaleString());
 
@@ -206,5 +216,5 @@ byId("downloadText").addEventListener("click", () => {
   }
 });
 
-wireNotes(byId("panel"), byId("note"));
+wireNotes(document.body, byId("note"));
 void loadSample();
