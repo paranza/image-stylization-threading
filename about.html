@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>The art behind the threads</title>
+    <meta name="description" content="How string art connects to value, hatching, chiaroscuro and optical color mixing, and how each control of the tool maps to these ideas." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/src/about/about.css" />
+  </head>
+  <body>
+    <main class="essay">
+      <p class="back"><a href="./index.html">&larr; Back to the tool</a></p>
+      <h1>The art behind the threads</h1>
+      <p class="lede">
+        A string art portrait has no paint, no grey and no brush. It is one dark line, wound
+        thousands of times between pegs. Every tone you see comes from how often that line
+        crosses a spot. Artists have built pictures this way for centuries. This page links
+        the algorithm to those ideas.
+      </p>
+
+      <section>
+        <h2>1. Value comes first</h2>
+        <p>
+          <em>Value</em> is how light or dark a tone is, apart from its hue. Drawing teachers
+          say that if the values are right, the picture reads, even in the wrong colors. A
+          black and white photo works for the same reason.
+        </p>
+        <p>
+          To make values easier to judge, artists use a <em>value scale</em>: a strip of
+          steps from white to black. The American painter and teacher Denman Ross used a
+          9 step scale, and the Munsell color system measures value from 0 (black) to 10
+          (white). Painters often make a small <em>value study</em> with only 3 to 5 values
+          before the real work, to check that the big shapes of light and dark hold up.
+        </p>
+        <figure>
+          <svg viewBox="0 0 450 60" role="img" aria-label="A nine step value scale from black to white">
+            <g stroke="var(--ink)" stroke-width="0.5">
+              <rect x="0" y="0" width="50" height="50" fill="#141414"/>
+              <rect x="50" y="0" width="50" height="50" fill="#2e2e2e"/>
+              <rect x="100" y="0" width="50" height="50" fill="#4a4a4a"/>
+              <rect x="150" y="0" width="50" height="50" fill="#666"/>
+              <rect x="200" y="0" width="50" height="50" fill="#808080"/>
+              <rect x="250" y="0" width="50" height="50" fill="#9a9a9a"/>
+              <rect x="300" y="0" width="50" height="50" fill="#b5b5b5"/>
+              <rect x="350" y="0" width="50" height="50" fill="#d1d1d1"/>
+              <rect x="400" y="0" width="50" height="50" fill="#ececec"/>
+            </g>
+          </svg>
+          <figcaption>A 9 step value scale. The tool shows one under the canvas, with the share of your picture in each step.</figcaption>
+        </figure>
+        <p class="tool">
+          <strong>In the tool:</strong> the <em>Value steps</em> control turns the target into
+          a value study, and the <em>Value study</em> view shows it. The solver only ever looks
+          at value per thread, never at hue directly.
+        </p>
+      </section>
+
+      <section>
+        <h2>2. Hatching: tone from lines</h2>
+        <p>
+          Engravers and pen draughtsmen cannot mix grey. They build tone from lines instead.
+          <em>Hatching</em> is a set of close parallel lines; <em>cross-hatching</em> lays a
+          second set across the first. Closer lines, or more layers, read as darker. Albrecht
+          Dürer's engravings, such as <em>Melencolia I</em> (1514), show how far this can go:
+          skin, metal, stone and sky, all made from lines of one black ink.
+        </p>
+        <figure>
+          <svg viewBox="0 0 450 110" role="img" aria-label="Four squares with zero, one, two and three layers of hatching, getting darker">
+            <g fill="none" stroke="var(--ink)" stroke-width="1.2">
+              <rect x="5" y="5" width="90" height="90"/>
+              <rect x="120" y="5" width="90" height="90"/>
+              <rect x="235" y="5" width="90" height="90"/>
+              <rect x="350" y="5" width="90" height="90"/>
+            </g>
+            <defs>
+              <pattern id="h1" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="8" stroke="var(--ink)" stroke-width="1.6"/></pattern>
+              <pattern id="h2" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)"><line x1="0" y1="0" x2="0" y2="8" stroke="var(--ink)" stroke-width="1.6"/></pattern>
+              <pattern id="h3" width="8" height="8" patternUnits="userSpaceOnUse"><line x1="0" y1="0" x2="0" y2="8" stroke="var(--ink)" stroke-width="1.6"/></pattern>
+            </defs>
+            <rect x="120" y="5" width="90" height="90" fill="url(#h1)"/>
+            <rect x="235" y="5" width="90" height="90" fill="url(#h1)"/>
+            <rect x="235" y="5" width="90" height="90" fill="url(#h2)"/>
+            <rect x="350" y="5" width="90" height="90" fill="url(#h1)"/>
+            <rect x="350" y="5" width="90" height="90" fill="url(#h2)"/>
+            <rect x="350" y="5" width="90" height="90" fill="url(#h3)"/>
+            <g font-size="11" fill="var(--ink-soft)" text-anchor="middle" font-family="Inter, sans-serif">
+              <text x="50" y="108">paper</text><text x="165" y="108">1 layer</text><text x="280" y="108">2 layers</text><text x="395" y="108">3 layers</text>
+            </g>
+          </svg>
+          <figcaption>More layers of line, darker value. String art is hatching where every stroke has to run from edge to edge.</figcaption>
+        </figure>
+        <p>
+          String art is hatching with one strict rule: each stroke is a straight line from one
+          peg on the frame to another. You cannot stop a line halfway. Tone in a small area
+          must come from many long lines that happen to cross there. That is why string
+          portraits have their typical web of light rays and a soft, glowing look.
+        </p>
+        <p class="tool">
+          <strong>In the tool:</strong> each <em>segment</em> is one hatching stroke.
+          <em>Opacity</em> is the pressure of the pencil (how much one stroke darkens),
+          <em>thickness</em> is the nib, and <em>pegs</em> set how finely the strokes can be
+          placed.
+        </p>
+      </section>
+
+      <section>
+        <h2>3. Layers of thread, layers of glaze</h2>
+        <p>
+          A thread is not fully opaque: light passes between and through the fibers. Two
+          crossing threads let through less light than one, but not zero. Oil painters know
+          this from <em>glazing</em>: thin transparent layers of paint over a dry layer. Each
+          glaze lets through a share of the light, so the shares multiply.
+        </p>
+        <figure>
+          <svg viewBox="0 0 450 90" role="img" aria-label="One, two and three translucent layers stacked, each letting through less light">
+            <rect x="0" y="0" width="450" height="70" fill="#fff" stroke="var(--line)"/>
+            <rect x="60" y="0" width="390" height="70" fill="#000" opacity="0.3"/>
+            <rect x="190" y="0" width="260" height="70" fill="#000" opacity="0.3"/>
+            <rect x="320" y="0" width="130" height="70" fill="#000" opacity="0.3"/>
+            <g font-size="12" text-anchor="middle" font-family="Inter, sans-serif">
+              <text x="30" y="40" fill="#555">100%</text>
+              <text x="125" y="40" fill="#222">70%</text>
+              <text x="255" y="40" fill="#fff">49%</text>
+              <text x="385" y="40" fill="#fff">34%</text>
+            </g>
+            <text x="225" y="86" font-size="11" fill="var(--ink-soft)" text-anchor="middle" font-family="Inter, sans-serif">light let through after 0, 1, 2 and 3 layers of 30% opacity</text>
+          </svg>
+          <figcaption>Stacked translucent layers multiply: 70% of 70% is 49%, not 40%.</figcaption>
+        </figure>
+        <p>
+          The solver models thread the same way. Each pixel remembers how much light it
+          still shows. A pass of thread with opacity 30% keeps 70% of it, a second pass keeps
+          70% of that, and so on. Because the tone of the drawing is known at every moment,
+          the solver can ask a precise question for each candidate line: how much closer to
+          the picture would the drawing get if I laid one more pass here?
+        </p>
+      </section>
+
+      <section>
+        <h2>4. Chiaroscuro and value key</h2>
+        <p>
+          <em>Chiaroscuro</em> (Italian for "light-dark") is the use of strong value contrast
+          to model form and set mood. Leonardo used soft transitions (<em>sfumato</em>);
+          Caravaggio pushed it to <em>tenebrism</em>, figures lit as if by a single lamp
+          against black. Vermeer's <em>Girl with a Pearl Earring</em>, the sample picture in
+          the tool, sets a lit face and a bright pearl against a near black ground.
+        </p>
+        <p>
+          The <em>key</em> of a picture is where most of its values live. A <em>high key</em>
+          picture is mostly light values; a <em>low key</em> picture is mostly dark ones.
+        </p>
+        <figure>
+          <svg viewBox="0 0 450 70" role="img" aria-label="Three gradients: high key, normal and low key">
+            <defs>
+              <linearGradient id="gHigh"><stop offset="0" stop-color="#7a7a7a"/><stop offset="1" stop-color="#fff"/></linearGradient>
+              <linearGradient id="gMid"><stop offset="0" stop-color="#000"/><stop offset="1" stop-color="#fff"/></linearGradient>
+              <linearGradient id="gLow"><stop offset="0" stop-color="#000"/><stop offset="1" stop-color="#8a8a8a"/></linearGradient>
+            </defs>
+            <rect x="0" y="0" width="140" height="44" fill="url(#gHigh)" stroke="var(--line)"/>
+            <rect x="155" y="0" width="140" height="44" fill="url(#gMid)" stroke="var(--line)"/>
+            <rect x="310" y="0" width="140" height="44" fill="url(#gLow)" stroke="var(--line)"/>
+            <g font-size="11" fill="var(--ink-soft)" text-anchor="middle" font-family="Inter, sans-serif">
+              <text x="70" y="62">high key</text><text x="225" y="62">full range</text><text x="380" y="62">low key</text>
+            </g>
+          </svg>
+          <figcaption>The same gradient placed in different parts of the value scale.</figcaption>
+        </figure>
+        <p class="tool">
+          <strong>In the tool:</strong> <em>Value key</em> shifts the picture toward the light
+          or dark end, and <em>Chiaroscuro</em> applies an S-curve that deepens darks and
+          brightens lights. String art loves contrast: thread can only add dark (or light, on
+          a dark ground), so clear value masses come through best.
+        </p>
+      </section>
+
+      <section>
+        <h2>5. Optical mixing: color in the eye</h2>
+        <p>
+          Thin lines of different colors, seen from a distance, blend into a new color in the
+          eye. This is <em>optical mixing</em>. The chemist Michel Eugène Chevreul studied how
+          neighbouring colors affect each other (1839), and Georges Seurat built his
+          <em>pointillist</em> paintings from small dots of pure color. Printed photos still
+          work this way: tiny halftone dots of cyan, magenta, yellow and black.
+        </p>
+        <figure>
+          <svg viewBox="0 0 450 150" role="img" aria-label="Left: cyan, magenta and yellow circles overlap to make red, green, blue and black. Right: red, green and blue circles overlap to make cyan, magenta, yellow and white.">
+            <rect x="0" y="0" width="215" height="150" fill="#fff" stroke="var(--line)"/>
+            <g style="mix-blend-mode:multiply">
+              <circle cx="85" cy="58" r="40" fill="#00ffff"/>
+              <circle cx="130" cy="58" r="40" fill="#ff00ff" style="mix-blend-mode:multiply"/>
+              <circle cx="107" cy="96" r="40" fill="#ffff00" style="mix-blend-mode:multiply"/>
+            </g>
+            <rect x="235" y="0" width="215" height="150" fill="#000"/>
+            <g style="isolation:isolate">
+              <rect x="235" y="0" width="215" height="150" fill="#000"/>
+              <circle cx="320" cy="58" r="40" fill="#ff0000"/>
+              <circle cx="365" cy="58" r="40" fill="#00ff00" style="mix-blend-mode:screen"/>
+              <circle cx="342" cy="96" r="40" fill="#0000ff" style="mix-blend-mode:screen"/>
+            </g>
+          </svg>
+          <figcaption>Left, on white: subtractive mixing, like inks. Right, on black: additive mixing, like light.</figcaption>
+        </figure>
+        <p>
+          On a white ground, thread works like ink: it removes light. The three color mode
+          then uses the subtractive primaries. A cyan thread absorbs red, magenta absorbs
+          green, yellow absorbs blue. On a black ground, thread reflects light onto the dark,
+          so the tool switches to the additive primaries: red, green and blue.
+        </p>
+        <p class="tool">
+          <strong>In the tool:</strong> in <em>Three colors</em> mode each thread solves its
+          own channel and the solver always moves the thread that can improve the picture
+          most, so the colors stay woven together. Use <em>Squint</em> to see the colors mix.
+        </p>
+      </section>
+
+      <section>
+        <h2>6. Squinting</h2>
+        <p>
+          A classic studio habit: squint at your subject. Details and edges blur away and only
+          the big value masses remain, which makes it easier to check that the darks and
+          lights are in the right place. A string portrait is meant to be seen this way, from
+          a few steps back.
+        </p>
+        <p class="tool">
+          <strong>In the tool:</strong> the <em>Squint</em> slider blurs the view, so you can
+          judge the work as a viewer across the room would.
+        </p>
+      </section>
+
+      <section>
+        <h2>7. Where string art comes from</h2>
+        <p>
+          In the late 1800s, the teacher Mary Everest Boole had children stitch straight lines
+          between holes on cards, and saw smooth curves appear from straight lines. This
+          "curve stitching" became the string art of the 1960s and 70s, with nails and colored
+          yarn on boards. In 2016 the Greek artist Petros Vrellis showed portraits made with a
+          single black thread wound around a circular frame of pins, the path computed by a
+          program. That work made the technique famous, and this tool follows the same idea.
+        </p>
+      </section>
+
+      <section>
+        <h2>8. How the solver draws</h2>
+        <ol>
+          <li>The picture is shrunk to a working size and toned (key, chiaroscuro, value steps).</li>
+          <li>The drawing starts as a blank sheet: white, or black for a dark ground.</li>
+          <li>The thread sits on a peg. For the line to every other reachable peg, the solver adds up how much one more pass would bring each pixel closer to the picture. A pass over a spot that is already dark enough counts against the line.</li>
+          <li>It lays one pass along the best line, moves to the new peg, and repeats until no line would help.</li>
+        </ol>
+        <p>
+          This is what an artist does when hatching: look for the area that is still too
+          light, and put the next stroke there, without overworking what is already done.
+          The solver just does it thousands of times a second.
+        </p>
+      </section>
+
+      <footer>
+        <p>
+          Original idea of this tool by
+          <a href="https://github.com/piellardj/image-stylization-threading">piellardj/image-stylization-threading</a>;
+          this is an independent implementation. Sample picture: Johannes Vermeer,
+          <em>Girl with a Pearl Earring</em>, about 1665, Mauritshuis, The Hague (public domain,
+          via Wikimedia Commons).
+        </p>
+      </footer>
+    </main>
+  </body>
+</html>
